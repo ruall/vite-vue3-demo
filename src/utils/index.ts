@@ -206,3 +206,13 @@ export function IEVersion() {
 export function humpToUnderline(val: string) {
   return val.replace(/([A-Z])/g, '_$1').toLowerCase()
 }
+
+/**
+ *
+ * @param arr 类型数组
+ * @param key 相应的value值
+ * @returns label展示内容
+ */
+export function getType(arr: any[], key: number) {
+  return arr.filter((item) => item.value === key)[0].label
+}

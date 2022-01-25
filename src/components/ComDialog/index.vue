@@ -55,12 +55,12 @@ const props = defineProps({
   // 是否显示全屏按钮
   showFullscreen: {
     type: Boolean as PropType<boolean>,
-    default: true
+    default: false
   },
   // 是否可以拖拽
   draggable: {
     type: Boolean as PropType<boolean>,
-    default: true
+    default: false
   }
 })
 const dialogRef = ref<HTMLElement | null>(null)

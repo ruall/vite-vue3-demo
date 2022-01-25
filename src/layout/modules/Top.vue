@@ -63,7 +63,6 @@
 <script setup lang="ts" name="Top">
 import { computed, ref, onMounted } from 'vue'
 import { useAppStore } from '@/store/modules/app'
-const appStore = useAppStore()
 
 import AppMain from '../components/AppMain/index.vue'
 import TagsView from '../components/TagsView/index.vue'
@@ -74,6 +73,7 @@ import UserInfo from '../components/UserInfo/index.vue'
 import Setting from '../components/Setting/index.vue'
 import Backtop from '../components/Backtop/index.vue'
 
+const appStore = useAppStore()
 const marginRight = ref<number>(0)
 const layout = computed(() => appStore.getLayout)
 const collapsed = computed(() => appStore.getCollapsed)

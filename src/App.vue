@@ -7,8 +7,8 @@
 <script setup lang="ts" name="App">
 import { computed } from 'vue'
 import { useAppStore } from '@/store/modules/app'
-const appStore = useAppStore()
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+const appStore = useAppStore()
 
 const greyMode = computed(() => appStore.getGreyMode)
 </script>

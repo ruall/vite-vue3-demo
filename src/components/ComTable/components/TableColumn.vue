@@ -13,19 +13,14 @@
           :prop="item.field"
         >
           <!-- 表头插槽 -->
-          <template v-if="item.slots && item.slots.header" #header="scope">
-            <table-slot
-              v-if="item.slots && item.slots.header"
-              :slot-name="item.slots.header"
-              :column="item"
-              :index="scope.$index"
-            />
+          <template v-if="slots[item.field + 'Header']" #header="scope">
+            <table-slot :slot-name="item.field + 'Header'" :column="item" :index="scope.$index" />
           </template>
 
           <!-- 表格内容插槽自定义 -->
-          <template v-if="item.slots && item.slots.default" #default="scope">
+          <template v-if="slots[item.field]" #default="scope">
             <table-slot
-              :slot-name="item.slots.default"
+              :slot-name="item.field"
               :row="scope.row"
               :column="item"
               :index="scope.$index"
@@ -38,17 +33,16 @@
 </template>
 
 <script setup lang="ts" name="TableColumn">
-import { PropType } from 'vue'
+import { PropType, useSlots } from 'vue'
 import TableSlot from './Slot.vue'
 import { deepClone } from '@/utils'
-
+const slots = useSlots()
 defineProps({
   child: {
     type: Object as PropType<IObj>,
     required: true
   }
 })
-
 function getItemBindValue(item: any) {
   const delArr: string[] = ['children']
   const obj = deepClone(item)

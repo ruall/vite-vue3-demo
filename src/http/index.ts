@@ -1,24 +1,22 @@
 import request from './request'
 
-import { useAppStore } from '@/store/modules/app'
+import { useAppStoreWithOut } from '@/store/modules/app'
 
 import config from './config'
 
-import { AxiosPromise, ResponseType } from 'axios'
+import { AxiosPromise } from 'axios'
 
 const { default_headers } = config
-const appStore = useAppStore()
+const appStore = useAppStoreWithOut()
 
-export interface Config {
-  params?: any
-  data?: any
-  url?: string
-  method?: 'get' | 'post' | 'delete' | 'put'
-  headersType?: string
-  responseType?: ResponseType
-}
-
-function fetch({ url, method, params, data, headersType, responseType }: Config): AxiosPromise {
+function fetch({
+  url,
+  method,
+  params,
+  data,
+  headersType,
+  responseType
+}: FetchConfig): AxiosPromise {
   return request({
     url: url,
     method,

@@ -5,6 +5,7 @@
       <el-table-column
         v-if="selection"
         type="selection"
+        align="center"
         :reserve-selection="reserveSelection"
         width="40"
       />
@@ -13,6 +14,7 @@
         <template v-if="item.type === 'index'">
           <el-table-column
             :key="item[item.field]"
+            align="center"
             v-bind="{ ...getItemBindValue(item) }"
             type="index"
             :index="item.index"
@@ -27,24 +29,19 @@
         <template v-else>
           <el-table-column
             :key="item[item.field]"
+            align="center"
             v-bind="{ ...getItemBindValue(item) }"
             :prop="item.field"
           >
             <!-- 表头插槽 -->
-            <template v-if="item.slots && item.slots.header" #header="scope">
-              <table-slot
-                v-if="item.slots && item.slots.header"
-                :slot-name="item.slots.header"
-                :column="item"
-                :index="scope.$index"
-              />
+            <template v-if="slots[item.field + 'Header']" #header="scope">
+              <table-slot :slot-name="item.field + 'Header'" :column="item" :index="scope.$index" />
             </template>
 
             <!-- 表格内容插槽自定义 -->
-            <template v-if="item.slots && item.slots.default" #default="scope">
+            <template v-if="slots[item.field]" #default="scope">
               <table-slot
-                v-if="item.slots && item.slots.default"
-                :slot-name="item.slots.default"
+                :slot-name="item.field"
                 :row="scope.row"
                 :column="item"
                 :index="scope.$index"
@@ -58,8 +55,8 @@
     <div v-if="pagination" class="pagination__wrap">
       <el-pagination
         :style="paginationStyle"
-        :page-sizes="[10, 20, 30, 40, 50, 100]"
-        layout="total, sizes, prev, pager, next, jumper"
+        background
+        layout="total, prev, pager, next"
         v-bind="getPaginationBindValue"
       />
     </div>
@@ -67,12 +64,11 @@
 </template>
 
 <script setup lang="ts" name="ComTable">
-import { PropType, computed, useAttrs, ref, getCurrentInstance, provide } from 'vue'
+import { PropType, computed, useAttrs, ref, getCurrentInstance, provide, useSlots } from 'vue'
 import { deepClone } from '@/utils'
 import { isObject } from '@/utils/validate'
 import TableColumn from './components/TableColumn.vue'
 import TableSlot from './components/Slot.vue'
-
 const props = defineProps({
   // 表头
   columns: {
@@ -95,23 +91,19 @@ const props = defineProps({
     default: false
   }
 })
-
 const attrs = useAttrs()
-
+const slots = useSlots()
 const tableRef = ref<HTMLElement | null>(null)
 function getTableRef() {
   return tableRef.value as any
 }
-
 const _this = getCurrentInstance()
 provide('tableRoot', _this)
-
 const getBindValue = computed((): IObj => {
   const bindValue = { ...attrs, ...props } as IObj
   delete bindValue.columns
   return bindValue
 })
-
 function getItemBindValue(item: IObj) {
   const delArr: string[] = []
   const obj = deepClone(item)
@@ -122,19 +114,16 @@ function getItemBindValue(item: IObj) {
   }
   return obj
 }
-
 const getPaginationBindValue = computed((): IObj => {
   const PaginationBindValue =
     props.pagination && isObject(props.pagination) ? { ...props.pagination } : {}
   return PaginationBindValue
 })
-
 const paginationStyle = computed(() => {
   return {
     textAlign: (props.pagination && (props.pagination as IObj).position) || 'right'
   }
 })
-
 function headerDragend(newWidth: number, _: number, column: IObj) {
   // 不懂为啥无法自动计算宽度，只能手动去计算了。。失望ing，到时候看看能不能优化吧。
   const htmlArr = document.getElementsByClassName(column.id)
@@ -144,7 +133,6 @@ function headerDragend(newWidth: number, _: number, column: IObj) {
     }
   }
 }
-
 defineExpose({
   getTableRef
 })

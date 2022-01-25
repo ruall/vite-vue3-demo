@@ -35,7 +35,7 @@ export const useAppStore = defineStore({
     layout: 'Classic', // layout布局
     showBreadcrumb: true, // 是否显示面包屑
     showHamburger: true, // 是否显示侧边栏缩收按钮
-    showScreenfull: true, // 是否全屏按钮
+    showScreenfull: false, // 是否全屏按钮
     showUserInfo: true, // 是否显示用户头像
     title: 'vue-element-plus-admin', // 标题
     logoTitle: 'vue-ElPlus-admin', // logo标题

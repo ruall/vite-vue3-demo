@@ -82,7 +82,6 @@
 <script setup lang="ts" name="LeftTop">
 import { computed } from 'vue'
 import { useAppStore } from '@/store/modules/app'
-const appStore = useAppStore()
 
 import AppMain from '../components/AppMain/index.vue'
 import TagsView from '../components/TagsView/index.vue'
@@ -96,6 +95,7 @@ import MenuTab from '../components/MenuTab/index.vue'
 import Setting from '../components/Setting/index.vue'
 import Backtop from '../components/Backtop/index.vue'
 
+const appStore = useAppStore()
 const layout = computed(() => appStore.getLayout)
 const collapsed = computed(() => appStore.getCollapsed)
 const showLogo = computed(() => appStore.getShowLogo)
