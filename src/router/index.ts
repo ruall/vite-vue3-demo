@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import { AppRouteRecordRaw } from './types'
 import type { App } from 'vue'
-import { getParentLayout } from './utils'
+// import { getParentLayout } from './utils'
 
 /* Layout */
 const Layout = () => import('../layout/index.vue')
@@ -70,96 +70,85 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/company',
     name: 'Root',
     meta: {},
     children: [
       {
-        path: 'dashboard',
-        component: () => import('_v/dashboard/index.vue'),
-        name: 'Dashboard',
+        path: 'company',
+        component: () => import('_v/company/index.vue'),
+        name: 'CompanyEnter',
         meta: {
-          title: '首页',
+          title: '企业管理',
           icon: 'dashboard',
           noCache: true,
           affix: true
         }
       }
     ]
-  },
-  {
-    path: '/external-link',
-    component: Layout,
-    meta: {},
-    children: [
-      {
-        path: 'http://8.133.179.48:4000/dist-doc/',
-        meta: { title: '文档', icon: 'documentation' }
-      }
-    ]
   }
 ]
 
 export const asyncRouterMap: AppRouteRecordRaw[] = [
-  {
-    path: '/level',
-    component: Layout,
-    redirect: '/level/menu1/menu1-1/menu1-1-1',
-    name: 'Level',
-    meta: {
-      title: '多级菜单缓存',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        name: 'Menu1Demo',
-        component: getParentLayout('Menu1Demo'),
-        redirect: '/level/menu1/menu1-1/menu1-1-1',
-        meta: {
-          title: 'Menu1'
-        },
-        children: [
-          {
-            path: 'menu1-1',
-            name: 'Menu11Demo',
-            component: getParentLayout('Menu11Demo'),
-            redirect: '/level/menu1/menu1-1/menu1-1-1',
-            meta: {
-              title: 'Menu1-1',
-              alwaysShow: true
-            },
-            children: [
-              {
-                path: 'menu1-1-1',
-                name: 'Menu111Demo',
-                component: () => import('_v/level/menu111.vue'),
-                meta: {
-                  title: 'Menu1-1-1'
-                }
-              }
-            ]
-          },
-          {
-            path: 'menu1-2',
-            name: 'Menu12Demo',
-            component: () => import('_v/level/menu12.vue'),
-            meta: {
-              title: 'Menu1-2'
-            }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        name: 'Menu2Demo',
-        component: () => import('_v/level/menu2.vue'),
-        meta: {
-          title: 'Menu2'
-        }
-      }
-    ]
-  }
+  // {
+  //   path: '/level',
+  //   component: Layout,
+  //   redirect: '/level/menu1/menu1-1/menu1-1-1',
+  //   name: 'Level',
+  //   meta: {
+  //     title: '多级菜单缓存',
+  //     icon: 'nested'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'menu1',
+  //       name: 'Menu1Demo',
+  //       component: getParentLayout('Menu1Demo'),
+  //       redirect: '/level/menu1/menu1-1/menu1-1-1',
+  //       meta: {
+  //         title: 'Menu1'
+  //       },
+  //       children: [
+  //         {
+  //           path: 'menu1-1',
+  //           name: 'Menu11Demo',
+  //           component: getParentLayout('Menu11Demo'),
+  //           redirect: '/level/menu1/menu1-1/menu1-1-1',
+  //           meta: {
+  //             title: 'Menu1-1',
+  //             alwaysShow: true
+  //           },
+  //           children: [
+  //             {
+  //               path: 'menu1-1-1',
+  //               name: 'Menu111Demo',
+  //               component: () => import('_v/level/menu111.vue'),
+  //               meta: {
+  //                 title: 'Menu1-1-1'
+  //               }
+  //             }
+  //           ]
+  //         },
+  //         {
+  //           path: 'menu1-2',
+  //           name: 'Menu12Demo',
+  //           component: () => import('_v/level/menu12.vue'),
+  //           meta: {
+  //             title: 'Menu1-2'
+  //           }
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: 'menu2',
+  //       name: 'Menu2Demo',
+  //       component: () => import('_v/level/menu2.vue'),
+  //       meta: {
+  //         title: 'Menu2'
+  //       }
+  //     }
+  //   ]
+  // }
 ]
 
 const router = createRouter({
