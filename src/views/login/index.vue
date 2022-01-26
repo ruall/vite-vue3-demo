@@ -56,6 +56,11 @@ export default defineComponent({
               })
               permissionStore.setIsAddRouters(true)
               push({ path: redirect.value || '/' })
+              ElNotification({
+                title: '提示',
+                message: '欢迎xxx进入系统！！！',
+                duration: 3000
+              })
             })
           } finally {
             loading.value = false
@@ -66,12 +71,6 @@ export default defineComponent({
         }
       })
     }
-
-    ElNotification({
-      title: '提示',
-      message: '账号 admin 为 前端 控制路由权限，账号 test 为 后端 控制路由权限。密码与账号相同',
-      duration: 60000
-    })
 
     return () => {
       return (
@@ -95,7 +94,7 @@ export default defineComponent({
                     <el-form-item prop="userName">
                       <el-input
                         v-model={form.userName}
-                        placeholder="请输入账号 admin or test"
+                        placeholder="请输入账号"
                         class="form--input"
                       >
                         {{
@@ -113,7 +112,7 @@ export default defineComponent({
                         show-password={true}
                         minlength={3}
                         maxlength={18}
-                        placeholder="请输入密码 admin or test"
+                        placeholder="请输入密码"
                         class="form--input"
                       >
                         {{
@@ -152,7 +151,8 @@ export default defineComponent({
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url('@/assets/img/login-bg.jpg');
+  background-color: #fff;
+  // background-image: url('@/assets/img/login-bg.jpg');
   background-position: center;
   background-size: cover;
 

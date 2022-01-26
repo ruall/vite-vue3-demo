@@ -178,6 +178,9 @@ export const handleCurrentChange = (val: number) => {
   console.log(val)
 }
 
+/**
+ * 获取列表信息
+ */
 export const getList = () => {
   loading.value = true
   setTimeout(() => {
@@ -196,7 +199,7 @@ export const getList = () => {
       {
         sort: 1,
         name1: 'xxxx公司xxxx公司xxxx公司xxxx公司',
-        name2: 0,
+        name2: 2,
         name3: 0,
         name4: 'xxx市',
         name5: '张三',
@@ -218,7 +221,7 @@ export const getList = () => {
       {
         sort: 3,
         name1: 'xxxx公司xxxx公司xxxx公司xxxx公司',
-        name2: 0,
+        name2: 1,
         name3: 0,
         name4: 'xxx市',
         name5: '张三',
@@ -229,7 +232,7 @@ export const getList = () => {
       {
         sort: 4,
         name1: 'xxxx公司xxxx公司xxxx公司xxxx公司',
-        name2: 0,
+        name2: 3,
         name3: 0,
         name4: 'xxx市',
         name5: '张三',
@@ -241,3 +244,25 @@ export const getList = () => {
     loading.value = false
   }, 3000)
 }
+
+/**
+ * 状态列表
+ */
+export const merchantTypeList = reactive<IObj>([
+  {
+    label: '印花厂',
+    value: 0
+  },
+  {
+    label: '注胶厂',
+    value: 1
+  },
+  {
+    label: '造纸厂',
+    value: 2
+  },
+  {
+    label: '制衣厂',
+    value: 3
+  }
+])

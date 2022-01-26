@@ -7,6 +7,7 @@
     lock-scroll
     :close-on-click-modal="false"
     top="10vh"
+    width="70%"
   >
     <template #title>
       <slot name="title">

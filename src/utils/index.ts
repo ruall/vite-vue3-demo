@@ -213,6 +213,23 @@ export function humpToUnderline(val: string) {
  * @param key 相应的value值
  * @returns label展示内容
  */
-export function getType(arr: any[], key: number) {
+export function getType(arr: IObj, key: number) {
   return arr.filter((item) => item.value === key)[0].label
+}
+
+/**
+ *
+ * 图片预览
+ * @param url 图片地址
+ */
+export function preview(url: string) {
+  if (!/\.(pdf|PDF)$/.test(url)) {
+    window.open(`https://view.officeapps.live.com/op/view.aspx?src=${url}`, '_blank')
+  } else {
+    window.open(url, '_blank')
+  }
+}
+
+export function fileExt(filename: string) {
+  return filename.substring(filename.lastIndexOf('.') + 1)
 }
