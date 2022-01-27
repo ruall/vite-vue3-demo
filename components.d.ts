@@ -63,6 +63,7 @@ declare module 'vue' {
     ElTransfer: typeof import('element-plus/es')['ElTransfer']
     ElTree: typeof import('element-plus/es')['ElTree']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    Index1: typeof import('./src/components/ComUpload/index1.vue')['default']
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
     ParentView: typeof import('./src/components/ParentView/index.vue')['default']
     Preview: typeof import('./src/components/Preview/index.vue')['default']

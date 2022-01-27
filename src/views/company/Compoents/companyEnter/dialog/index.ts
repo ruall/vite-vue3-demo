@@ -9,6 +9,9 @@ export const getDatas = () => {
     required: true,
     message: '该项为必填项'
   }
+
+  // let shareScopeEnd: IObj = []
+
   const formSchema: FormSchemaConfig[] = reactive([
     {
       field: 'name1',
@@ -73,7 +76,13 @@ export const getDatas = () => {
       },
       componentProps: {
         placeholder: '请选择主营类目',
-        clearable: true
+        clearable: true,
+        collapseTags: true,
+        showAllLevels: false,
+        props: {
+          multiple: true,
+          emitPath: false
+        }
       },
       colProps: {
         span: 24
@@ -86,37 +95,37 @@ export const getDatas = () => {
           children: [
             {
               value: '01',
-              label: '二级类目1',
+              label: '二级类目01',
               children: [
                 {
-                  value: '001',
-                  label: '三级类目1'
+                  value: '011',
+                  label: '三级类目011'
                 },
                 {
-                  value: '002',
-                  label: '三级类目2'
+                  value: '012',
+                  label: '三级类目012'
                 },
                 {
-                  value: '003',
-                  label: '三级类目3'
+                  value: '013',
+                  label: '三级类目013'
                 }
               ]
             },
             {
               value: '02',
-              label: '二级类目2',
+              label: '二级类目02',
               children: [
                 {
                   value: '021',
-                  label: '三级类目1'
+                  label: '三级类目021'
                 },
                 {
                   value: '022',
-                  label: '三级类目2'
+                  label: '三级类目022'
                 },
                 {
                   value: '023',
-                  label: '三级类目3'
+                  label: '三级类目023'
                 }
               ]
             }
@@ -128,37 +137,37 @@ export const getDatas = () => {
           children: [
             {
               value: '11',
-              label: '二级类目1',
+              label: '二级类目11',
               children: [
                 {
                   value: '111',
-                  label: '三级类目1'
+                  label: '三级类目111'
                 },
                 {
                   value: '112',
-                  label: '三级类目2'
+                  label: '三级类目112'
                 },
                 {
                   value: '113',
-                  label: '三级类目3'
+                  label: '三级类目113'
                 }
               ]
             },
             {
               value: '12',
-              label: '二级类目2',
+              label: '二级类目12',
               children: [
                 {
                   value: '121',
-                  label: '三级类目1'
+                  label: '三级类目121'
                 },
                 {
                   value: '122',
-                  label: '三级类目2'
+                  label: '三级类目122'
                 },
                 {
                   value: '123',
-                  label: '三级类目3'
+                  label: '三级类目123'
                 }
               ]
             }
@@ -170,37 +179,37 @@ export const getDatas = () => {
           children: [
             {
               value: '21',
-              label: '二级类目1',
+              label: '二级类目21',
               children: [
                 {
                   value: '211',
-                  label: '三级类目1'
+                  label: '三级类目211'
                 },
                 {
                   value: '212',
-                  label: '三级类目2'
+                  label: '三级类目212'
                 },
                 {
                   value: '213',
-                  label: '三级类目3'
+                  label: '三级类目213'
                 }
               ]
             },
             {
               value: '22',
-              label: '二级类目2',
+              label: '二级类目222',
               children: [
                 {
                   value: '221',
-                  label: '三级类目1'
+                  label: '三级类目221'
                 },
                 {
                   value: '222',
-                  label: '三级类目2'
+                  label: '三级类目222'
                 },
                 {
                   value: '223',
-                  label: '三级类目3'
+                  label: '三级类目223'
                 }
               ]
             }
@@ -208,7 +217,10 @@ export const getDatas = () => {
         }
       ],
       onChange: (item) => {
-        console.log(item)
+        console.log(item.value)
+        if (item.value === 0) {
+          clearCheckedNodes()
+        }
       }
     },
     {
@@ -303,7 +315,7 @@ export const getDatas = () => {
     }
   ])
   let logoUrlList: IObj[] = []
-  const onFileChange = (logoUrl: IObj[]) => {
+  const onFileChange = (logoUrl: IObj) => {
     const filemap = logoUrl.map((v) => v.url)[0]
     logoUrlList = filemap
   }

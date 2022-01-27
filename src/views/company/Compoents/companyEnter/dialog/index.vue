@@ -28,7 +28,8 @@
     <template #name10>
       <com-upload
         ref="logoRef"
-        file-type="image"
+        file-type="video"
+        placeholder="仅支持mp4格式文件"
         :file-list="logoUrlList"
         @file-change="onFileChange"
       />
@@ -37,21 +38,19 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, provide } from 'vue'
+import { PropType } from 'vue'
 import { getDatas } from './index'
 
 const { formSchema, onFileChange, logoUrlList, register, submit, reset } = getDatas()
 
-const props = defineProps({
+defineProps({
   // 表头
   columns: {
     type: Array as PropType<IObj[]>,
     default: () => []
   }
 })
-console.log(props)
-
-provide('dialogFun', {
+defineExpose({
   submit,
   reset
 })

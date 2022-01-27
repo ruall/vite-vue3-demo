@@ -3,7 +3,7 @@
     <el-upload
       v-if="!loading"
       :list-type="fileType === 'image' ? 'picture-card' : 'text'"
-      :action="`${baseUrl}${path}`"
+      :action="`${path}`"
       name="file"
       :class="{ isHidden: isMax }"
       :file-list="fileList"
@@ -34,7 +34,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { reactive, toRefs, defineComponent, watch, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import Compressor from 'compressorjs'
@@ -46,8 +46,8 @@ export default defineComponent({
     fileType: {
       type: String,
       default: 'image',
-      validator: (val) => {
-        return ['image', 'file'].includes(val)
+      validator: (val: any) => {
+        return ['image', 'file', 'video'].includes(val)
       }
     },
     path: {
@@ -80,12 +80,12 @@ export default defineComponent({
     }
   },
   emits: ['file-change'],
-  setup(props, { emit }) {
+  setup(props: any, { emit }) {
     const state = reactive({
       baseUrl: import.meta.env.VITE_API_BASEPATH,
       headers: {
         // Authorization: 'bearer ' + store.state.layout.token.ACCESS_TOKEN,
-      },
+      } as any,
       data: {
         fileType: 'png'
       },
@@ -100,7 +100,7 @@ export default defineComponent({
       if (props.placeholder.length > 0) {
         return props.placeholder
       }
-      return '只能上传 jpg/png/jpeg 文件，且不超过 20M'
+      return '只能上传 jpg/png/jpeg 文件，且不超过 2M'
     })
 
     watch(
@@ -141,7 +141,7 @@ export default defineComponent({
       if (props.fileType === 'image') {
         const isImage =
           file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg'
-        const size = file.size / 1024 / 1024 < 20
+        const size = file.size / 1024 / 1024 < 2
         if (!isImage) {
           state.loading = false
           ElMessage.error('上传图片只能是 JPG/PNG/JPEG 格式')
@@ -149,7 +149,7 @@ export default defineComponent({
         }
         if (!size) {
           state.loading = false
-          ElMessage.error('上传图片大小不能超过 20MB')
+          ElMessage.error('上传图片大小不能超过 2MB')
           return false
         }
         const compressor = new Promise((resolve) => {
@@ -166,6 +166,14 @@ export default defineComponent({
           })
         })
         return compressor
+      } else if (props.fileType === 'video') {
+        const isVideo = file.type === 'video/*'
+        if (!isVideo) {
+          state.loading = false
+          ElMessage.error('只能上传视频格式文件')
+          return false
+        }
+        return isVideo
       } else {
         const isFile = file.type === 'application/pdf'
         if (!isFile) {
@@ -214,6 +222,8 @@ export default defineComponent({
         state.imageUrl = file.url
         state.dialogVisible = true
       } else if (fileExt(file.url) === 'pdf') {
+        preview(file.url)
+      } else if (fileExt(file.url) === 'mp4') {
         preview(file.url)
       }
     }

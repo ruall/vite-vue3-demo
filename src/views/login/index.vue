@@ -57,8 +57,8 @@ export default defineComponent({
               permissionStore.setIsAddRouters(true)
               push({ path: redirect.value || '/' })
               ElNotification({
-                title: '提示',
-                message: '欢迎xxx进入系统！！！',
+                title: '欢迎',
+                message: '欢迎xxx！！！',
                 duration: 3000
               })
             })

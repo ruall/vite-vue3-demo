@@ -31,7 +31,7 @@
 
     <com-dialog v-model="dialogVisible" :title="dialogTitle">
       <div>
-        <DialogInfo />
+        <DialogInfo ref="dialogRef" />
       </div>
       <template #footer>
         <el-button @click="toggleVisible()">取消</el-button>
@@ -56,22 +56,28 @@ import {
 
 import { getType } from '@/utils'
 import { useWork } from '@/hooks/work/useWork'
-import { onMounted, inject } from 'vue'
+import { onMounted, ref, nextTick } from 'vue'
 import DialogInfo from './dialog/index.vue'
 
 const { open, dialogVisible, dialogTitle } = useWork({
   listFun: getList
 })
+const dialogRef = ref<HTMLElement | null>(null)
 
 onMounted(() => {
   getList()
 })
-const dialogFun = inject('dialogFun') as IObj
-console.log(dialogFun)
+
 const toggleVisible = () => {
-  dialogFun.submit()
+  nextTick(() => {
+    const dialogDom = dialogRef.value as any
+    dialogDom.reset()
+  })
 }
 const refreshTable = () => {
-  dialogFun.reset()
+  nextTick(() => {
+    const dialogDom = dialogRef.value as any
+    dialogDom.submit()
+  })
 }
 </script>
