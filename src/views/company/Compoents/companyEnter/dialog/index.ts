@@ -218,9 +218,6 @@ export const getDatas = () => {
       ],
       onChange: (item) => {
         console.log(item.value)
-        if (item.value === 0) {
-          clearCheckedNodes()
-        }
       }
     },
     {
